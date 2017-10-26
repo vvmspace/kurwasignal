@@ -7,23 +7,30 @@ use Illuminate\Database\Eloquent\Model;
 class KurwaSender extends Model
 {
     static function sendPush($message = 'Kurwa!', $title = 'Kurwa!'){
+
+        $app_id = config('onesignal.app_id');
+        $auth_key = config('onesignal.auth_key');
+
         $content = [
             'en' => $message
         ];
+
         $headings = [
-            'en' => $title,
+            'en' => $title
         ];
+
         $fields = array(
-            'app_id' => config('onesignal.app_id'),
+            'app_id' => $app_id,
             'included_segments' => array('All'),
             'contents' => $content,
             'headings' => $headings
         );
+
         $fields = json_encode($fields);
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8',
-            'Authorization: Basic MGNkYjMwYmUtYTUxYS00ZDAzLTliNjEtOWZjMzEwMjJhNTQ1'));
+            "Authorization: Basic $auth_key"));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($ch, CURLOPT_HEADER, FALSE);
         curl_setopt($ch, CURLOPT_POST, TRUE);
