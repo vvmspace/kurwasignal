@@ -1,4 +1,4 @@
-# KurwaSignal - Use OneSignal API via PHP.
+# KurwaSignal - Use OneSignal API via PHP and Laravel 5.5
 
 Example of OneSignal Push notifications API on Laravel 5.5 or something else. You can just use KurwaSender PHP class.
 
