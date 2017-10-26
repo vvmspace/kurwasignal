@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class KurwaSender extends Model
 {
-    static function sendPush($message = 'Kurwa!', $title = 'Kurwa!'){
+    static function sendPush($message = 'Kurwa!', $title = 'Kurwa!', $segments = ['All']){
 
         $app_id = config('onesignal.app_id');
         $auth_key = config('onesignal.auth_key');
@@ -21,7 +21,7 @@ class KurwaSender extends Model
 
         $fields = array(
             'app_id' => $app_id,
-            'included_segments' => array('All'),
+            'included_segments' => $segments,
             'contents' => $content,
             'headings' => $headings
         );
