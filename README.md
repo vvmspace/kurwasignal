@@ -10,9 +10,11 @@ Example of OneSignal Push notifications API on Laravel 5.5 or something else. Yo
 
 3. composer install
 
-4. cp config/onesignal_example.php config/onesignal.php
+4.A.1. cp config/onesignal_example.php config/onesignal.php
 
-5. set your app_id and auth_key in config/onesignal.php
+4.A.2. set your app_id and auth_key in config/onesignal.php
+
+4.B. set configs on the fly: KurwaSender::setConfig($app_id, $auth_key);
 
 ## Usage
 

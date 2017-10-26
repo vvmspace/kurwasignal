@@ -6,10 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class KurwaSender extends Model
 {
+
+    public static $app_id;
+    public static $auth_key;
+
+
     static function sendPush($message = 'Kurwa!', $title = 'Kurwa!', $segments = ['All']){
 
-        $app_id = config('onesignal.app_id');
-        $auth_key = config('onesignal.auth_key');
+        $app_id = (static::$app_id) ? (static::$app_id) : config('onesignal.app_id');
+        $auth_key = (static::$auth_key) ? (static::$auth_key) : config('onesignal.auth_key');
 
         $content = [
             'en' => $message
@@ -41,6 +46,11 @@ class KurwaSender extends Model
         curl_close($ch);
 
         return $response;
+    }
+
+    static function setConfig($app_id, $auth_key){
+        static::$app_id = $app_id;
+        static::$auth_key = $auth_key;
     }
 
 }
