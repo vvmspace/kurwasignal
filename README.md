@@ -12,7 +12,7 @@ Example of OneSignal Push notifications API on Laravel 5.5 or something else. Yo
 
 4. cp config/onesignal_example.php config/onesignal.php
 
-5. set your app_id in config/onesignal.php
+5. set your app_id and auth_key in config/onesignal.php
 
 ## Usage
 
