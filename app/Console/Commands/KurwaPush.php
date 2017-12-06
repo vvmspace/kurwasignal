@@ -41,6 +41,7 @@ class KurwaPush extends Command
         $arguments = $this->arguments();
         $message = (!empty($arguments['message'])) ? $arguments['message'] : 'Kurwa!';
         $title = (!empty($arguments['title'])) ? $arguments['title'] : 'Kurwa!';
-        KurwaSender::sendPush($message, $title);
+        $sendPush = KurwaSender::sendPush($message, $title);
+        var_dump($sendPush);
     }
 }

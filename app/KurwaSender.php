@@ -11,7 +11,7 @@ class KurwaSender extends Model
     public static $auth_key;
 
 
-    static function sendPush($message = 'Kurwa!', $title = 'Kurwa!', $segments = ['All']){
+    static function sendPush($message = 'Kurwa!', $title = 'Kurwa!', $fields = ['included_segments' => 'All']){
 
         $app_id = (static::$app_id) ? (static::$app_id) : config('onesignal.app_id');
         $auth_key = (static::$auth_key) ? (static::$auth_key) : config('onesignal.auth_key');
@@ -24,12 +24,13 @@ class KurwaSender extends Model
             'en' => $title
         ];
 
-        $fields = array(
+        $fields_pre = array(
             'app_id' => $app_id,
-            'included_segments' => $segments,
             'contents' => $content,
             'headings' => $headings
         );
+
+        $fields = array_merge($fields_pre, $fields);
 
         $fields = json_encode($fields);
         $ch = curl_init();
@@ -51,6 +52,16 @@ class KurwaSender extends Model
     static function setConfig($app_id, $auth_key){
         static::$app_id = $app_id;
         static::$auth_key = $auth_key;
+    }
+
+    static function pushSingle($to, $message, $title){
+        if (!is_array($to)){
+            $ids = [];
+            $ids[] = $to;
+        }else{
+            $ids = $to;
+        }
+        return static::sendPush($message, $title, ['include_player_ids' => $ids]);
     }
 
 }
